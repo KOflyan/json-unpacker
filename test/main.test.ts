@@ -1,6 +1,6 @@
-import { unpack } from "../src/main";
-import { JsonObject } from "../src/types";
-import { DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src/errors";
+import { unpack } from "../src";
+import { JsonObject } from "../src";
+import { DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src";
 
 describe("Test unpack()", () => {
 

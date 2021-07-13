@@ -12,11 +12,11 @@ export function unpack<T>(input: T | T[], delimiter = '.'): PlainJsonObject | Pl
     return unpackObject(input, delimiter);
 }
 
-export function unpackList(objects: JsonObject[], delimiter = '.'): PlainJsonObject[] {
+function unpackList(objects: JsonObject[], delimiter: string): PlainJsonObject[] {
     return objects.map(o => unpackObject(o, delimiter));
 }
 
-export function unpackObject(object: JsonObject, delimiter = '.'): PlainJsonObject {
+function unpackObject(object: JsonObject, delimiter: string): PlainJsonObject {
 
     if (!object || Array.isArray(object) || typeof object !== 'object') {
         throw new InvalidJsonObjectException();
@@ -49,7 +49,7 @@ export function unpackObject(object: JsonObject, delimiter = '.'): PlainJsonObje
     return result;
 }
 
-export function getNestedValue(object: JsonObject, key: string, delimiter: string = '.'): any {
+export function getNestedValue(object: JsonObject, key: string, delimiter: string): any {
 
     if (!key.includes(delimiter)) {
         return object[key];

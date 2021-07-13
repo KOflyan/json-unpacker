@@ -1,11 +1,13 @@
 {
   "name": "json-unpacker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Simple library for unpacking JSON objects – transforming multi-level nested objects to plain objects, keeping the paths preserved.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "prepublish": "tsc",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
   },
@@ -19,10 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://gitlab.com/KOflyan/json-unpacker.git"
+    "url": "https://gitlab.com/KOflyan/json-unpacker.git"
   },
   "bugs": {
     "url": "https://gitlab.com/KOflyan/json-unpacker/-/issues"
   },
-  "keywords": [ "json", "unpack", "flatten"]
+  "keywords": [
+    "json",
+    "unpack",
+    "flatten"
+  ]
 }

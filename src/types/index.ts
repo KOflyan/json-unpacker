@@ -4,5 +4,5 @@ export interface JsonObject<T = any> {
 
 
 export interface PlainJsonObject {
-    [key: string]: string | number | boolean | Array<any> | null | undefined;
+    [key: string]: string | number | boolean | null | undefined;
 }

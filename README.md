@@ -3,7 +3,7 @@
 ### Overview
 
 Simple library for unpacking JSON objects, 
-e.g. transforming multi-level nested objects to a plain object, keeping the paths preserved.
+e.g. transforming multi-level nested objects to plain objects, keeping the paths preserved.
 
 For example, given a nested JSON object as such
 
@@ -46,5 +46,5 @@ where
 
 `<my-object>` is the JSON object or array you want to unpack
 
-`<my-delimiter>` is the delimiter you want the keys to be separated with (default is `.`)
+`<my-delimiter>` (string) is the delimiter you want the keys to be separated with (default is `.`)
 
