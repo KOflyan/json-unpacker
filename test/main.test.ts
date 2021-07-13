@@ -11,6 +11,7 @@ describe("Test unpack()", () => {
     it('Should throw if called with null/undefined', () => {
         expect(() => unpack(null as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
         expect(() => unpack(undefined as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
+        expect(() => unpack("hello" as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
     });
 
     it('Should throw if no delimiter is specified', () => {
