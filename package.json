@@ -23,5 +23,6 @@
   },
   "bugs": {
     "url": "https://gitlab.com/KOflyan/json-unpacker/-/issues"
-  }
+  },
+  "keywords": [ "json", "unpack", "flatten"]
 }
