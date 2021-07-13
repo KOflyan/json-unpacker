@@ -1,0 +1,27 @@
+{
+  "name": "json-unpacker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage"
+  },
+  "author": "koflyan",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://gitlab.com/KOflyan/json-unpacker.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/KOflyan/json-unpacker/-/issues"
+  }
+}
