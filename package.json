@@ -1,13 +1,13 @@
 {
   "name": "json-unpacker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple library for unpacking JSON objects – transforming multi-level nested objects to plain objects, keeping the paths preserved.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "prepublish": "tsc",
+    "prepublishOnly": "tsc",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
   },

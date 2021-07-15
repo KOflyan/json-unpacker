@@ -3,6 +3,5 @@ export interface JsonObject<T = any> {
 }
 
 
-export interface PlainJsonObject {
-    [key: string]: string | number | boolean | null | undefined;
+export interface PlainJsonObject extends JsonObject<string | number | boolean | null | undefined> {
 }

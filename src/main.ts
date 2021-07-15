@@ -5,6 +5,10 @@ export function unpack<T>(input: T[], delimiter?: string): PlainJsonObject[];
 export function unpack<T>(input: T, delimiter?: string): PlainJsonObject;
 export function unpack<T>(input: T | T[], delimiter = '.'): PlainJsonObject | PlainJsonObject[] {
 
+    if (!delimiter || !delimiter.trim().length) {
+        throw new DelimiterNotSpecifiedException();
+    }
+
     if (Array.isArray(input)) {
         return unpackList(input, delimiter);
     }
@@ -20,10 +24,6 @@ function unpackObject(object: JsonObject, delimiter: string): PlainJsonObject {
 
     if (!object || Array.isArray(object) || typeof object !== 'object') {
         throw new InvalidJsonObjectException();
-    }
-
-    if (!delimiter || !delimiter.trim().length) {
-        throw new DelimiterNotSpecifiedException();
     }
 
     let keys = Object.keys(object);
