@@ -1,6 +1,4 @@
-import { unpack } from "../src";
-import { JsonObject } from "../src";
-import { DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src";
+import { unpack, JsonObject, DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src";
 
 describe("Test unpack()", () => {
 
@@ -23,7 +21,7 @@ describe("Test unpack()", () => {
     it('Should return same object if no nested attributes exist', () => {
        const o = {
            key1: 'val1',
-           key2: 'val2'
+           key2: null
        };
 
        expect(unpack(o)).toEqual(o);
@@ -170,5 +168,5 @@ describe("Test unpack()", () => {
         expect(unpack(o)).toEqual({
             'ke.y': undefined,
         });
-    })
+    });
 });

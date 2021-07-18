@@ -26,3 +26,9 @@ export class InvalidJsonObjectException extends GenericException {
         super(message);
     }
 }
+
+export class InvalidPlainJsonObjectException extends GenericException {
+    constructor(message = 'Invalid object type provided') {
+        super(message);
+    }
+}

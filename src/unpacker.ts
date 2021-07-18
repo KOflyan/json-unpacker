@@ -1,5 +1,6 @@
 import { JsonObject, PlainJsonObject } from "./types";
 import { DelimiterNotSpecifiedException, InvalidJsonObjectException } from "./errors";
+import { getNestedValue } from "./utils";
 
 export function unpack<T>(input: T[], delimiter?: string): PlainJsonObject[];
 export function unpack<T>(input: T, delimiter?: string): PlainJsonObject;
@@ -47,15 +48,4 @@ function unpackObject(object: JsonObject, delimiter: string): PlainJsonObject {
     }
 
     return result;
-}
-
-export function getNestedValue(object: JsonObject, key: string, delimiter: string): any {
-
-    if (!key.includes(delimiter)) {
-        return object[key];
-    }
-
-    const pathArray = key.match(new RegExp(`([^[${delimiter}\\]])+`, 'gi')) || [];
-
-    return pathArray.reduce((prevObj, key) => prevObj && prevObj[key], object);
 }
