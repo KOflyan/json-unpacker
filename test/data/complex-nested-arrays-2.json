@@ -1,0 +1,56 @@
+[
+  {
+    "key1": "value",
+    "key2": "value2",
+    "children": [
+      {
+        "key3": "val",
+        "key4": "val",
+        "children": [
+          {
+            "key1": "a",
+            "key2": "b"
+          }
+        ]
+      },
+      {
+        "key3": "val2",
+        "key4": "val3"
+      },
+      {
+        "key3": "val",
+        "key4": "val",
+        "children": [
+          {
+            "key1": "zxczx",
+            "key2": "csdf"
+          },
+          {
+            "key1": "g",
+            "key2": "7sdsdfs"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key1": "value1",
+    "key2": "value2",
+    "children": [
+      {
+        "key3": "val1",
+        "key4": "val2",
+        "children": [
+          {
+            "key1": "b",
+            "key2": "c"
+          },
+          {
+            "key1": "g",
+            "key2": "7"
+          }
+        ]
+      }
+    ]
+  }
+]

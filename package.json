@@ -1,7 +1,7 @@
 {
   "name": "json-unpacker",
-  "version": "1.1.0",
-  "description": "Simple library for unpacking JSON objects – transforming multi-level nested objects to plain objects, keeping the paths preserved.",
+  "version": "1.1.1",
+  "description": "Simple library for packing/unpacking JSON objects – transforming multi-level nested objects to plain objects, keeping the paths preserved.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -28,6 +28,7 @@
   },
   "keywords": [
     "json",
+    "pack",
     "unpack",
     "flatten"
   ]

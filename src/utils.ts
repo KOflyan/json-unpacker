@@ -1,11 +1,6 @@
 import { JsonObject, PlainJsonObjectValue } from "./types";
 
 export function getNestedValue(object: JsonObject, key: string, delimiter = '.'): JsonObject {
-
-    if (!key.includes(delimiter)) {
-        return object[key];
-    }
-
     const pathArray = key.match(new RegExp(`([^[${delimiter}\\]])+`, 'gi'));
 
     return pathArray!.reduce((prevObj, key) => prevObj && prevObj[key], object);

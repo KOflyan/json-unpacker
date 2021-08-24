@@ -1,4 +1,8 @@
 import { unpack, JsonObject, DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src";
+import arrays1 from './data/arrays-1.json';
+import complex1 from './data/complex-1.json';
+import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json';
+import complexWithNestedArrays2 from './data/complex-nested-arrays-2.json';
 
 describe("Test unpack()", () => {
 
@@ -55,22 +59,8 @@ describe("Test unpack()", () => {
     });
 
     it('Should work with arrays of json objects', () => {
-        const objects = [
-            {
-                key1: 'val1',
-                key2: {
-                    key3: 'val3'
-                }
-            },
-            {
-                key1: 'val45',
-                key2: {
-                    key4: 'val456'
-                }
-            }
-        ]
 
-        expect(unpack(objects)).toEqual([
+        expect(unpack(arrays1)).toEqual([
             {
                 key1: 'val1',
                 'key2.key3': 'val3'
@@ -83,23 +73,8 @@ describe("Test unpack()", () => {
     });
 
     it('Should unpack complex json object', () => {
-        const o = {
-            key1: 'val1',
-            key2: {
-                key3: {
-                    key4: 'val2',
-                    key5: [1, 2, 3],
-                    key6: [
-                        {
-                            key7: 'val3'
-                        }
-                    ]
-                },
-                key8: 100
-            },
-        }
 
-        expect(unpack(o)).toEqual({
+        expect(unpack(complex1)).toEqual({
             key1: 'val1',
             'key2.key3.key4': 'val2',
             'key2.key3.key5[0]': 1,
@@ -111,40 +86,7 @@ describe("Test unpack()", () => {
     });
 
     it('Should unpack complex json object with nested arrays', () => {
-        const o = {
-            key1: {
-                key2: [
-                    {
-                        key3: 'hello',
-                        key4: [
-                            {
-                                key5: .3333
-                            }
-                        ]
-                    },
-                    {
-                        key3: 'hello-uuuu',
-                        key4: [
-                            {
-                                key5: .7777
-                            }
-                        ],
-                        key5: {
-                            key6: null
-                        }
-                    }
-                ]
-            },
-            key2: {
-                key3: {
-                    key4: 'val2',
-                    key5: [1, 2, 3]
-                },
-                key5: 100
-            },
-        }
-
-        expect(unpack(o)).toEqual(    {
+        expect(unpack(complexWithNestedArrays1)).toEqual(    {
             'key1.key2[0].key3': 'hello',
             'key1.key2[0].key4[0].key5': 0.3333,
             'key1.key2[1].key3': 'hello-uuuu',
@@ -156,6 +98,37 @@ describe("Test unpack()", () => {
             'key2.key3.key5[2]': 3,
             'key2.key5': 100,
         });
+    });
+
+    it('Should unpack complex json object with nested^2 arrays', () => {
+        expect(unpack(complexWithNestedArrays2)).toEqual([
+            {
+                'children[2].children[1].key2': '7sdsdfs',
+                'children[2].children[1].key1': 'g',
+                'children[2].children[0].key2': 'csdf',
+                'children[2].children[0].key1': 'zxczx',
+                'children[2].key4': 'val',
+                'children[2].key3': 'val',
+                'children[1].key4': 'val3',
+                'children[1].key3': 'val2',
+                'children[0].children[0].key2': 'b',
+                'children[0].children[0].key1': 'a',
+                'children[0].key4': 'val',
+                'children[0].key3': 'val',
+                key2: 'value2',
+                key1: 'value'
+            },
+            {
+                'children[0].children[1].key2': '7',
+                'children[0].children[1].key1': 'g',
+                'children[0].children[0].key2': 'c',
+                'children[0].children[0].key1': 'b',
+                'children[0].key4': 'val2',
+                'children[0].key3': 'val1',
+                key2: 'value2',
+                key1: 'value1'
+            }
+        ])
     });
 
     it('Should set value to undefined if key names include delimiter in their names before processing', () => {
