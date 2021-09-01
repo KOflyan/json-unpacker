@@ -1,35 +1,35 @@
-import { unpack, JsonObject, DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src";
-import arrays1 from './data/arrays-1.json';
-import complex1 from './data/complex-1.json';
-import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json';
-import complexWithNestedArrays2 from './data/complex-nested-arrays-2.json';
+import { unpack, JsonObject, DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src"
+import arrays1 from './data/arrays-1.json'
+import complex1 from './data/complex-1.json'
+import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json'
+import complexWithNestedArrays2 from './data/complex-nested-arrays-2.json'
 
 describe("Test unpack()", () => {
 
     it("Should return empty object if called with empty object", () => {
-        expect(unpack({})).toEqual({});
-    });
+        expect(unpack({})).toEqual({})
+    })
 
     it('Should throw if called with null/undefined', () => {
-        expect(() => unpack(null as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
-        expect(() => unpack(undefined as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
-        expect(() => unpack("hello" as unknown as JsonObject)).toThrow(InvalidJsonObjectException);
-    });
+        expect(() => unpack(null as unknown as JsonObject)).toThrow(InvalidJsonObjectException)
+        expect(() => unpack(undefined as unknown as JsonObject)).toThrow(InvalidJsonObjectException)
+        expect(() => unpack("hello" as unknown as JsonObject)).toThrow(InvalidJsonObjectException)
+    })
 
     it('Should throw if no delimiter is specified', () => {
-        expect(() => unpack({}, null as unknown as string)).toThrow(DelimiterNotSpecifiedException);
-        expect(() => unpack({}, '')).toThrow(DelimiterNotSpecifiedException);
-        expect(() => unpack({}, '     ')).toThrow(DelimiterNotSpecifiedException);
-    });
+        expect(() => unpack({}, null as unknown as string)).toThrow(DelimiterNotSpecifiedException)
+        expect(() => unpack({}, '')).toThrow(DelimiterNotSpecifiedException)
+        expect(() => unpack({}, '     ')).toThrow(DelimiterNotSpecifiedException)
+    })
 
     it('Should return same object if no nested attributes exist', () => {
        const o = {
            key1: 'val1',
            key2: null
-       };
+       }
 
-       expect(unpack(o)).toEqual(o);
-    });
+       expect(unpack(o)).toEqual(o)
+    })
 
     it('Should use default delimiter and properly unpack', () => {
         const o = {
@@ -41,8 +41,8 @@ describe("Test unpack()", () => {
         expect(unpack(o)).toEqual({
             key1: 'val1',
             'key2.key3': 'val3'
-        });
-    });
+        })
+    })
 
     it('Should use custom delimiter and properly unpack', () => {
         const o = {
@@ -55,8 +55,8 @@ describe("Test unpack()", () => {
         expect(unpack(o, '~')).toEqual({
             key1: 'val1',
             'key2~key3': 'val3'
-        });
-    });
+        })
+    })
 
     it('Should work with arrays of json objects', () => {
 
@@ -69,8 +69,8 @@ describe("Test unpack()", () => {
                 key1: 'val45',
                 'key2.key4': 'val456'
             }
-        ]);
-    });
+        ])
+    })
 
     it('Should unpack complex json object', () => {
 
@@ -82,8 +82,8 @@ describe("Test unpack()", () => {
             'key2.key3.key5[2]': 3,
             'key2.key3.key6[0].key7': 'val3',
             'key2.key8': 100,
-        });
-    });
+        })
+    })
 
     it('Should unpack complex json object with nested arrays', () => {
         expect(unpack(complexWithNestedArrays1)).toEqual(    {
@@ -97,8 +97,8 @@ describe("Test unpack()", () => {
             'key2.key3.key5[1]': 2,
             'key2.key3.key5[2]': 3,
             'key2.key5': 100,
-        });
-    });
+        })
+    })
 
     it('Should unpack complex json object with nested^2 arrays', () => {
         expect(unpack(complexWithNestedArrays2)).toEqual([
@@ -129,7 +129,7 @@ describe("Test unpack()", () => {
                 key1: 'value1'
             }
         ])
-    });
+    })
 
     it('Should set value to undefined if key names include delimiter in their names before processing', () => {
         const o = {
@@ -140,6 +140,6 @@ describe("Test unpack()", () => {
 
         expect(unpack(o)).toEqual({
             'ke.y': undefined,
-        });
-    });
-});
+        })
+    })
+})

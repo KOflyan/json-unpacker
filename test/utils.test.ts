@@ -1,4 +1,8 @@
-import { assignNestedValue, getNestedValue } from "../src";
+import {
+    assignNestedValue,
+    DelimiterNotSpecifiedException,
+    getNestedValue
+} from "../src"
 
 describe("Test utils", () => {
 
@@ -19,14 +23,14 @@ describe("Test utils", () => {
                         }
                     ]
                 }
-            };
+            }
 
-            expect(getNestedValue(o, 'key1')).toEqual({ nextKey: 10 });
-            expect(getNestedValue(o, 'key1.nextKey', '.')).toEqual(10);
-            expect(getNestedValue(o, 'key1~nextKey', '~')).toEqual(10);
-            expect(getNestedValue(o, 'key2.key3[0]', '.')).toEqual(1);
-            expect(getNestedValue(o, 'key2.key4[0].key5', '.')).toEqual('hellou');
-        });
+            expect(getNestedValue(o, 'key1')).toEqual({ nextKey: 10 })
+            expect(getNestedValue(o, 'key1.nextKey', '.')).toEqual(10)
+            expect(getNestedValue(o, 'key1~nextKey', '~')).toEqual(10)
+            expect(getNestedValue(o, 'key2.key3[0]', '.')).toEqual(1)
+            expect(getNestedValue(o, 'key2.key4[0].key5', '.')).toEqual('hellou')
+        })
 
         it('Should return undefined if no such value exists', () => {
             const o = {
@@ -37,12 +41,12 @@ describe("Test utils", () => {
                         }
                     ]
                 }
-            };
+            }
 
-            expect(getNestedValue(o, 'key1.key2[1].key5', '.')).toBeUndefined();
-            expect(getNestedValue(o, 'key1.key3[0].key5', '.')).toBeUndefined();
-        });
-    });
+            expect(getNestedValue(o, 'key1.key2[1].key5', '.')).toBeUndefined()
+            expect(getNestedValue(o, 'key1.key3[0].key5', '.')).toBeUndefined()
+        })
+    })
 
     describe('Test assignNestedValue()', () => {
 
@@ -55,17 +59,17 @@ describe("Test utils", () => {
                         }
                     ]
                 }
-            });
-        });
+            })
+        })
 
-        it('Should return undefined', () => {
-            expect(assignNestedValue('test', '')).toEqual({});
-            expect(assignNestedValue('test', '', { hello: 1})).toEqual({ hello: 1});
-        });
+        it('Should return initial object', () => {
+            expect(assignNestedValue('test', '')).toEqual({})
+            expect(assignNestedValue('test', '', { hello: 1})).toEqual({ hello: 1})
+        })
 
         it('Should throw if no delimiter is specified', () => {
-            const out = assignNestedValue('test', 'key.keeeeey', {}, null as unknown as string );
-            expect(out).toEqual({ 'key.keeeeey': 'test' });
-        });
-    });
-});
+            expect(() => assignNestedValue('test', 'key.keeeeey', {}, null as unknown as string ))
+                .toThrow(DelimiterNotSpecifiedException)
+        })
+    })
+})

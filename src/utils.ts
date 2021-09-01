@@ -1,9 +1,19 @@
-import { JsonObject, PlainJsonObjectValue } from "./types";
+import { JsonObject, PlainJsonObjectValue } from "./types"
+import { DelimiterNotSpecifiedException } from "./errors"
 
-export function getNestedValue(object: JsonObject, key: string, delimiter = '.'): JsonObject {
-    const pathArray = key.match(new RegExp(`([^[${delimiter}\\]])+`, 'gi'));
 
-    return pathArray!.reduce((prevObj, key) => prevObj && prevObj[key], object);
+export function getNestedValue(
+    object: JsonObject,
+    key: string,
+    delimiter = '.'
+): JsonObject | undefined {
+    const pathArray = key.match(new RegExp(`([^[${delimiter}\\]])+`, 'gi'))
+
+    if (!pathArray) {
+        return undefined
+    }
+
+    return pathArray.reduce((prevObj, key) => prevObj && prevObj[key], object)
 }
 
 export function assignNestedValue(
@@ -13,37 +23,41 @@ export function assignNestedValue(
     delimiter = '.'
 ): JsonObject {
 
-    if (!path || !path.trim().length) {
-        return object;
+    if (!delimiter) {
+        throw new DelimiterNotSpecifiedException()
     }
 
-    const items = path.split(delimiter);
+    if (!path || !path.trim().length) {
+        return object
+    }
 
-    let ref = object;
+    const items = path.split(delimiter)
+
+    let ref = object
 
     while (items.length) {
-        let key = items.shift()!;
-        const arrayIndexMatch = key.match(/(?<=\[)(.*?)(?=])/g) || [];
-        const idx = parseInt(arrayIndexMatch[0]!, 10);
+        let key = items.shift()!
+        const arrayIndexMatch = key.match(/(?<=\[)(.*?)(?=])/g) || []
+        const idx = parseInt(arrayIndexMatch[0]!, 10)
 
-        key = key.replace(/(\[.*])/g, '');
+        key = key.replace(/(\[.*])/g, '')
 
-        let value = Array.isArray(ref[key]) ? ref[key][idx] : ref[key];
+        let value = Array.isArray(ref[key]) ? ref[key][idx] : ref[key]
 
         if (!items.length) {
-            value = finalValue;
+            value = finalValue
         }
 
         if  (!arrayIndexMatch.length) {
-            ref[key] = value !== undefined ? value : {};
-            ref = ref[key];
-            continue;
+            ref[key] = value !== undefined ? value : {}
+            ref = ref[key]
+            continue
         }
 
-        ref[key] = ref[key] || [];
-        ref[key][idx] = value !== undefined ? value : {};
-        ref = ref[key][idx];
+        ref[key] = (ref[key] || [])
+        ref[key][idx] = value !== undefined ? value : {}
+        ref = ref[key][idx]
     }
 
-    return object;
+    return object
 }

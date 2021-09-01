@@ -1,26 +1,26 @@
-import { InvalidPlainJsonObjectException, DelimiterNotSpecifiedException, PlainJsonObject, pack } from "../src";
-import arrays1 from './data/arrays-1.json';
-import complex1 from './data/complex-1.json';
-import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json';
-import complexWithNestedArrays2 from './data/complex-nested-arrays-2.json';
+import { InvalidPlainJsonObjectException, DelimiterNotSpecifiedException, PlainJsonObject, pack } from "../src"
+import arrays1 from './data/arrays-1.json'
+import complex1 from './data/complex-1.json'
+import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json'
+import complexWithNestedArrays2 from './data/complex-nested-arrays-2.json'
 
 describe("Test pack()", () => {
 
     it("Should return empty object if called with empty object", () => {
-        expect(pack({})).toEqual({});
-    });
+        expect(pack({})).toEqual({})
+    })
 
     it('Should throw if called with null/undefined', () => {
-        expect(() => pack(null as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException);
-        expect(() => pack(undefined as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException);
-        expect(() => pack("hello" as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException);
-    });
+        expect(() => pack(null as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
+        expect(() => pack(undefined as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
+        expect(() => pack("hello" as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
+    })
 
     it('Should throw if no delimiter is specified', () => {
-        expect(() => pack({}, null as unknown as string)).toThrow(DelimiterNotSpecifiedException);
-        expect(() => pack({}, '')).toThrow(DelimiterNotSpecifiedException);
-        expect(() => pack({}, '     ')).toThrow(DelimiterNotSpecifiedException);
-    });
+        expect(() => pack({}, null as unknown as string)).toThrow(DelimiterNotSpecifiedException)
+        expect(() => pack({}, '')).toThrow(DelimiterNotSpecifiedException)
+        expect(() => pack({}, '     ')).toThrow(DelimiterNotSpecifiedException)
+    })
 
     it('Should throw if called with object which is not compatible to PlainJsonObject type', () => {
         const o1 = {
@@ -28,7 +28,7 @@ describe("Test pack()", () => {
             key2: {
                 key3: 'val'
             }
-        };
+        }
         const o2 = {
             key1: 'val',
             key2: [1, 2]
@@ -36,17 +36,17 @@ describe("Test pack()", () => {
 
         [o1, o2].forEach(o =>
             expect(() => pack(o as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
-        );
+        )
     })
 
     it('Should return same object if no nested attributes exist', () => {
         const o = {
             key1: 'val1',
             key2: null
-        };
+        }
 
-        expect(pack(o)).toEqual(o);
-    });
+        expect(pack(o)).toEqual(o)
+    })
 
     it('Should use default delimiter and properly pack', () => {
         const o = {
@@ -58,8 +58,8 @@ describe("Test pack()", () => {
             key2: {
                 key3: 'val3'
             }
-        });
-    });
+        })
+    })
 
     it('Should use custom delimiter and properly pack', () => {
         const o = {
@@ -72,8 +72,8 @@ describe("Test pack()", () => {
             key2: {
                 key3: 'val3'
             }
-        });
-    });
+        })
+    })
 
     it('Should work with arrays of json objects', () => {
         const objects = [
@@ -87,8 +87,8 @@ describe("Test pack()", () => {
             }
         ]
 
-        expect(pack(objects)).toEqual(arrays1);
-    });
+        expect(pack(objects)).toEqual(arrays1)
+    })
 
     it('Should pack complex json object', () => {
         const o = {
@@ -101,8 +101,8 @@ describe("Test pack()", () => {
             'key2.key8': 100,
         }
 
-        expect(pack(o)).toEqual(complex1);
-    });
+        expect(pack(o)).toEqual(complex1)
+    })
 
     it('Should pack complex json object with nested arrays', () => {
         const o = {
@@ -118,8 +118,8 @@ describe("Test pack()", () => {
             'key2.key5': 100,
         }
 
-        expect(pack(o)).toEqual(complexWithNestedArrays1);
-    });
+        expect(pack(o)).toEqual(complexWithNestedArrays1)
+    })
 
     it('Should pack complex json object with nested^2 arrays', () => {
         expect(pack([
@@ -149,6 +149,6 @@ describe("Test pack()", () => {
                 key2: 'value2',
                 key1: 'value1'
             }
-        ])).toEqual(complexWithNestedArrays2);
-    });
-});
+        ])).toEqual(complexWithNestedArrays2)
+    })
+})
