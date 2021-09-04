@@ -1,4 +1,10 @@
-import { unpack, JsonObject, DelimiterNotSpecifiedException, InvalidJsonObjectException } from "../src"
+import {
+    unpack,
+    JsonObject,
+    DelimiterNotSpecifiedException,
+    InvalidJsonObjectException,
+    KeyNameContainsDelimiterException
+} from "../src"
 import arrays1 from './data/arrays-1.json'
 import complex1 from './data/complex-1.json'
 import complexWithNestedArrays1 from './data/complex-nested-arrays-1.json'
@@ -131,15 +137,15 @@ describe("Test unpack()", () => {
         ])
     })
 
-    it('Should set value to undefined if key names include delimiter in their names before processing', () => {
+    it('Should throw if key names contain delimiter in their names', () => {
+        const delimiter = '.'
+        const key = 'ke.y'
         const o = {
-            'ke.y': {
+            [key]: {
                 key: 'abc'
             }
         }
 
-        expect(unpack(o)).toEqual({
-            'ke.y': undefined,
-        })
+        expect(() => unpack(o, delimiter)).toThrow(new KeyNameContainsDelimiterException(key, delimiter))
     })
 })

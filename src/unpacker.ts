@@ -1,4 +1,4 @@
-import { DelimiterNotSpecifiedException, InvalidJsonObjectException } from "./errors"
+import { DelimiterNotSpecifiedException, InvalidJsonObjectException, KeyNameContainsDelimiterException } from "./errors"
 import { getNestedValue } from "./utils"
 import { JsonArray, JsonObject, PlainJsonObject, PlainJsonObjectValue } from "./types"
 
@@ -30,6 +30,8 @@ function unpackObject<T>(object: JsonObject<T>, delimiter: string): PlainJsonObj
     const keys = Object.keys(object)
     const result = {} as PlainJsonObject
 
+    validateKeys(keys, delimiter)
+
     while (keys.length) {
         const key = keys.pop()!
         const value = getNestedValue(object, key, delimiter)
@@ -48,4 +50,11 @@ function unpackObject<T>(object: JsonObject<T>, delimiter: string): PlainJsonObj
     }
 
     return result
+}
+
+function validateKeys(keys: string[], delimiter: string): void {
+    keys.filter(k => k.includes(delimiter))
+        .map(k => {
+            throw new KeyNameContainsDelimiterException(k, delimiter)
+        })
 }

@@ -1,6 +1,6 @@
 {
   "name": "json-unpacker",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Simple library for packing/unpacking JSON objects – transforming multi-level nested objects to plain objects, keeping the paths preserved.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,8 @@
     "lint:fix": "eslint --ext .js,.ts src/ test/ --fix",
     "prepublishOnly": "tsc",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "prepare": "husky install"
   },
   "author": "koflyan",
   "license": "MIT",
@@ -24,11 +25,6 @@
     "jest": "^27.0.6",
     "ts-jest": "^27.0.3",
     "typescript": "^4.4.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run test"
-    }
   },
   "repository": {
     "type": "git",
