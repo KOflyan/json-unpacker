@@ -148,4 +148,26 @@ describe("Test unpack()", () => {
 
         expect(() => unpack(o, delimiter)).toThrow(new KeyNameContainsDelimiterException(key, delimiter))
     })
+
+    it('Should throw if circular JSON is provided', () => {
+        const delimiter = '.'
+        const o = {
+            key: 'abc',
+            object: {},
+        }
+
+        o.object = o
+
+        expect(() => unpack(o, delimiter)).toThrow("Provided JSON object contains circular structure")
+    })
+
+    it('Should handle BigInt values correctly', () => {
+        const delimiter = '.'
+        const o = {
+            key: 'abc',
+            bigint: BigInt(2),
+        }
+
+        expect(unpack(o, delimiter)).toEqual({bigint: BigInt(2), key: "abc"})
+    })
 })

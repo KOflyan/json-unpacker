@@ -5,7 +5,6 @@ import { JsonArray, JsonObject, PlainJsonObject, PlainJsonObjectValue } from "./
 export function unpack<T>(input: JsonArray<T>, delimiter?: string): PlainJsonObject[];
 export function unpack<T>(input: JsonObject<T>, delimiter?: string): PlainJsonObject;
 export function unpack<T>(input: JsonObject<T> | JsonArray<T>, delimiter = '.'): PlainJsonObject | PlainJsonObject[] {
-
     if (!delimiter || !delimiter.trim().length) {
         throw new DelimiterNotSpecifiedException()
     }
@@ -22,6 +21,17 @@ function unpackList<T>(objects: JsonArray<T>, delimiter: string): PlainJsonObjec
 }
 
 function unpackObject<T>(object: JsonObject<T>, delimiter: string): PlainJsonObject {
+    try {
+        JSON.stringify(object)
+    } catch (e) {
+        if (!(e instanceof TypeError)) {
+            throw e
+        }
+
+        if (e.message.includes('Converting circular structure to JSON')) {
+            throw new InvalidJsonObjectException("Provided JSON object contains circular structure")
+        }
+    }
 
     if (!object || Array.isArray(object) || typeof object !== 'object') {
         throw new InvalidJsonObjectException()

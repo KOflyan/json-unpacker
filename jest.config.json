@@ -4,5 +4,7 @@
   "coveragePathIgnorePatterns": [
     "node_modules",
     "<rootDir>/src/errors/index.ts"
-  ]
+  ],
+  "collectCoverage": true,
+  "coverageDirectory": "./coverage"
 }

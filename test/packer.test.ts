@@ -16,6 +16,17 @@ describe("Test pack()", () => {
         expect(() => pack("hello" as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
     })
 
+    it('Should throw if circular object is provided', () => {
+        const o = {
+            key: 'abc',
+            object: {}
+        }
+
+        o.object = o
+
+        expect(() => pack(o as unknown as PlainJsonObject)).toThrow(InvalidPlainJsonObjectException)
+    })
+
     it('Should throw if no delimiter is specified', () => {
         expect(() => pack({}, null as unknown as string)).toThrow(DelimiterNotSpecifiedException)
         expect(() => pack({}, '')).toThrow(DelimiterNotSpecifiedException)
