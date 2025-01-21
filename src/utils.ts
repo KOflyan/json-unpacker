@@ -7,7 +7,7 @@ export function getNestedValue(
     key: string,
     delimiter = '.'
 ): JsonObject | undefined {
-    const pathArray = key.match(new RegExp(`([^[${delimiter}\\]])+`, 'gi'))
+    const pathArray = key.split(delimiter).flatMap((pathPart) => pathPart.match(new RegExp(`([^[\\]])+`, 'gi')) ?? [])
 
     if (!pathArray) {
         return undefined

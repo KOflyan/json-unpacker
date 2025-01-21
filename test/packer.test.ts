@@ -75,10 +75,25 @@ describe("Test pack()", () => {
     it('Should use custom delimiter and properly pack', () => {
         const o = {
             key1: 'val1',
-                'key2~key3': 'val3'
+            'key2~key3': 'val3'
         }
 
         expect(pack(o, '~')).toEqual({
+            key1: 'val1',
+            key2: {
+                key3: 'val3'
+            }
+        })
+    })
+
+    it('Should use custom multiple character sequence delimiter and properly pack', () => {
+        const delimiter = '/.~./'
+        const o = {
+            key1: 'val1',
+            [`key2${delimiter}key3`]: 'val3'
+        }
+
+        expect(pack(o, delimiter)).toEqual({
             key1: 'val1',
             key2: {
                 key3: 'val3'

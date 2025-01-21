@@ -170,4 +170,18 @@ describe("Test unpack()", () => {
 
         expect(unpack(o, delimiter)).toEqual({bigint: BigInt(2), key: "abc"})
     })
+
+    it('Should unpack keys with a multiple character sequence delimiter correctly', () => {
+        const delimiter = '/.~./'
+        const key = 'ke.y.z'
+        const o = {
+            [key]: {
+                key: 'abc'
+            }
+        }
+
+        expect(unpack(o, delimiter)).toEqual({
+            [`${key}${delimiter}key`]: 'abc'
+        })
+    })
 })
